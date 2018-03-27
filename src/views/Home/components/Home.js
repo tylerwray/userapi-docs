@@ -6,6 +6,8 @@ import { CircularProgress } from 'material-ui/Progress'
 import MarkdownRenderer from 'react-markdown-renderer'
 import { withStyles } from 'material-ui/styles'
 
+const ONE_HOUR_IN_MILLISECONDS = 3600000
+
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 16,
@@ -27,14 +29,40 @@ class Home extends Component {
     classes: PropTypes.object
   }
 
-  componentDidMount() {
-    axios.get('https://api.github.com/repos/wraytw/userapi.io/contents/README.md?ref=master')
-      .then(res => atob(res.data.content))
-      .then(markdown => {
-        this.setState({
-          markdown
+  isREADMEExpired() {
+    const now = Date.now()
+    const storedTime = localStorage.getItem('userapi-stored-time')
+
+    return (now - storedTime) > ONE_HOUR_IN_MILLISECONDS
+  }
+
+  setREADME(markdown) {
+    localStorage.setItem('userapi-stored-time', Date.now())
+    localStorage.setItem('userapi-markdown', markdown)
+  }
+
+  getREADME() {
+    const storedMD = localStorage.getItem('userapi-markdown')
+
+    if (!storedMD || this.isREADMEExpired()) {
+      axios.get('https://api.github.com/repos/wraytw/userapi.io/contents/README.md?ref=master')
+        .then(res => atob(res.data.content))
+        .then(md => {
+          this.setREADME(md)
+
+          this.setState({
+            markdown: md
+          })
         })
-      })
+    }
+
+    this.setState({
+      markdown: storedMD
+    })
+  }
+
+  componentDidMount() {
+    this.getREADME()
   }
 
   render() {
