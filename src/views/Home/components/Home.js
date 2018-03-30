@@ -70,7 +70,8 @@ class Home extends Component {
 
     return (
       <Paper className={classes.root} elevation={2}>
-        {this.state.markdown
+        {
+          this.state.markdown
           ? <MarkdownRenderer markdown={this.state.markdown} />
           : (
             <div className={classes.progress}>

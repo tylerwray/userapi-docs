@@ -1,22 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Snackbar from 'material-ui/Snackbar'
-import IconButton from 'material-ui/IconButton'
 import { BrowserRouter } from 'react-router-dom'
-import CloseIcon from 'material-ui-icons/Close'
 
-import Header from './shared/Header'
+import CloseButton from './shared/CloseButton'
 import Routes from './Routes'
-
-const CloseButton = ({ onClick }) => (
-  <IconButton onClick={onClick} aria-label="Delete" color="secondary">
-    <CloseIcon />
-  </IconButton>
-)
-
-CloseButton.propTypes = {
-  onClick: PropTypes.func
-}
+import AppLayout from './layouts/AppLayout'
 
 class App extends Component {
   state = {
@@ -42,9 +30,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
         <BrowserRouter>
-          <Routes />
+          <AppLayout>
+            <Routes />
+          </AppLayout>
         </BrowserRouter>
         <Snackbar
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
