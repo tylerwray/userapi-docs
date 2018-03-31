@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Syntax from 'react-syntax-highlighter/prism'
 import PropTypes from 'prop-types'
-import { okaidia } from 'react-syntax-highlighter/styles/prism'
+import { tomorrow } from 'react-syntax-highlighter/styles/prism'
 import IconButton from 'material-ui/IconButton'
 import CopyIcon from 'material-ui-icons/ContentCopy'
 import Tooltip from 'material-ui/Tooltip'
@@ -12,11 +12,38 @@ import CloseButton from './CloseButton'
 
 const styles = {
   codeBlock: {
-    borderRadius: 3
+    borderRadius: 0,
+    position: 'relative'
   },
   copyButton: {
-    float: 'right'
+    position: 'absolute',
+    right: 5,
+    top: 5
+  },
+  copyIcon: {
+    color: '#CCCCCC'
   }
+}
+
+const CodeBlockBackground = ({ children, style, onCopy }) => (
+  <div style={{ ...style, ...styles.codeBlock }}>
+    <span style={styles.copyButton}>
+      <CopyToClipboard text={children} onCopy={onCopy}>
+        <Tooltip title="Copy to Clipboard" placement="left">
+          <IconButton aria-label="Copy">
+            <CopyIcon style={styles.copyIcon} color="action" />
+          </IconButton>
+        </Tooltip>
+      </CopyToClipboard>
+    </span>
+    {children}
+  </div>
+)
+
+CodeBlockBackground.propTypes = {
+  children: PropTypes.array.isRequired,
+  style: PropTypes.object.isRequired,
+  onCopy: PropTypes.func.isRequired
 }
 
 class CodeBlock extends Component {
@@ -47,14 +74,16 @@ class CodeBlock extends Component {
 
     return (
       <div>
-        <CopyToClipboard style={styles.copyButton} text={children} onCopy={this.openSnackbar.bind(this)}>
-          <Tooltip title="Copy to Clipboard" placement="left">
-            <IconButton aria-label="Copy">
-              <CopyIcon color="action" />
-            </IconButton>
-          </Tooltip>
-        </CopyToClipboard>
-        <Syntax language="json" style={okaidia} customStyle={styles.codeBlock}>{children}</Syntax>
+        <Syntax
+          language="json"
+          style={tomorrow}
+          customStyle={styles.codeBlock}
+          PreTag={props => (
+            <CodeBlockBackground {...props} onCopy={this.openSnackbar.bind(this)} />
+          )}
+        >
+          {children}
+        </Syntax>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={this.state.copiedSnackbar}

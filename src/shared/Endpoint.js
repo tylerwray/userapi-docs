@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
+import Card, { CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import CodeBlock from './CodeBlock'
 
@@ -14,35 +13,53 @@ const styles = theme => {
       maxWidth: 800,
       margin: '50px auto'
     },
-    title: {
-      margin: '16px 0',
-      fontSize: 14
+    content: {
+      paddingLeft: 0,
+      paddingRight: 0,
+      // NOTE: Temporary, might remove later
+      '&:last-child': {
+        paddingBottom: 0
+      }
     },
     endpoint: {
-      color: theme.palette.text.primary
+      color: theme.palette.text.primary,
+      display: 'inline-block',
+      marginBottom: 16,
+      marginLeft: 10
+    },
+    method: {
+      marginLeft: 24,
+      display: 'inline-block',
+      fontSize: 20,
+      color: theme.palette.secondary.main
+    },
+    description: {
+      marginBottom: 10,
+      marginLeft: 24,
+      fontSize: 16
     }
   }
 }
 
 const Endpoint = ({ classes, endpoint, method, description, code }) => (
   <Card className={classes.card}>
-    <CardContent>
-      <Typography className={classes.endpoint} variant="headline" component="h2">
-        {endpoint}
-      </Typography>
-      <Typography className={classes.title} color="textSecondary">
+    <CardContent className={classes.content}>
+      <Typography className={classes.method} color="textSecondary">
         {method.toUpperCase()}
       </Typography>
-      <Typography component="p" style={{ marginBottom: '10px' }}>
+      <Typography className={classes.endpoint} variant="headline">
+        {endpoint}
+      </Typography>
+      <Typography component="p" className={classes.description}>
         {description}
       </Typography>
       <CodeBlock>
         {code}
       </CodeBlock>
     </CardContent>
-    <CardActions>
+    {/* <CardActions>
       <Button size="small">Try it out</Button>
-    </CardActions>
+    </CardActions> */}
   </Card>
 )
 
