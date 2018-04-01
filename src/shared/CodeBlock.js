@@ -25,10 +25,10 @@ const styles = {
   }
 }
 
-const CodeBlockBackground = ({ children, style, onCopy }) => (
+const CodeBlockBackground = ({ children, style, textToCopy, onCopy }) => (
   <div style={{ ...style, ...styles.codeBlock }}>
     <span style={styles.copyButton}>
-      <CopyToClipboard text={children} onCopy={onCopy}>
+      <CopyToClipboard text={textToCopy} onCopy={onCopy}>
         <Tooltip title="Copy to Clipboard" placement="left">
           <IconButton aria-label="Copy">
             <CopyIcon style={styles.copyIcon} color="action" />
@@ -43,6 +43,7 @@ const CodeBlockBackground = ({ children, style, onCopy }) => (
 CodeBlockBackground.propTypes = {
   children: PropTypes.array.isRequired,
   style: PropTypes.object.isRequired,
+  textToCopy: PropTypes.string.isRequired,
   onCopy: PropTypes.func.isRequired
 }
 
@@ -70,16 +71,16 @@ class CodeBlock extends Component {
   }
 
   render() {
-    const { children } = this.props
+    const { children, language } = this.props
 
     return (
       <div>
         <Syntax
-          language="json"
+          language={language || 'json'}
           style={tomorrow}
           customStyle={styles.codeBlock}
           PreTag={props => (
-            <CodeBlockBackground {...props} onCopy={this.openSnackbar.bind(this)} />
+            <CodeBlockBackground textToCopy={children} {...props} onCopy={this.openSnackbar.bind(this)} />
           )}
         >
           {children}
@@ -101,8 +102,8 @@ class CodeBlock extends Component {
 }
 
 CodeBlock.propTypes = {
-  children: PropTypes.string,
-  classes: PropTypes.object
+  children: PropTypes.string.isRequired,
+  language: PropTypes.string
 }
 
 export default CodeBlock

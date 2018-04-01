@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Card, { CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
+import Divider from 'material-ui/Divider'
 import CodeBlock from './CodeBlock'
 
 const styles = theme => {
@@ -20,6 +21,10 @@ const styles = theme => {
       '&:last-child': {
         paddingBottom: 0
       }
+    },
+    codeBlockLabel: {
+      marginLeft: 24,
+      marginTop: 25
     },
     endpoint: {
       color: theme.palette.text.primary,
@@ -41,7 +46,7 @@ const styles = theme => {
   }
 }
 
-const Endpoint = ({ classes, endpoint, method, description, code }) => (
+const Endpoint = ({ classes, endpoint, method, description, request, requestLanguage, response }) => (
   <Card className={classes.card}>
     <CardContent className={classes.content}>
       <Typography className={classes.method} color="textSecondary">
@@ -50,11 +55,29 @@ const Endpoint = ({ classes, endpoint, method, description, code }) => (
       <Typography className={classes.endpoint} variant="headline">
         {endpoint}
       </Typography>
-      <Typography component="p" className={classes.description}>
+      <Typography variant="display2" className={classes.description}>
         {description}
       </Typography>
+      <Divider />
+      {
+        request
+        &&
+        <Typography variant="subheading" className={classes.codeBlockLabel}>
+          Example {requestLanguage} Request
+        </Typography>
+      }
+      {
+        request
+        &&
+        <CodeBlock language={requestLanguage}>
+          {request}
+        </CodeBlock>
+      }
+      <Typography variant="subheading" className={classes.codeBlockLabel}>
+        Example Response
+      </Typography>
       <CodeBlock>
-        {code}
+        {response}
       </CodeBlock>
     </CardContent>
     {/* <CardActions>
@@ -68,7 +91,9 @@ Endpoint.propTypes = {
   endpoint: PropTypes.string,
   method: PropTypes.string,
   description: PropTypes.string,
-  code: PropTypes.string
+  request: PropTypes.string,
+  requestLanguage: PropTypes.string,
+  response: PropTypes.string
 }
 
 export default withStyles(styles)(Endpoint)
