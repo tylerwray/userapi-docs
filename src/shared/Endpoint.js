@@ -46,7 +46,7 @@ const styles = theme => {
   }
 }
 
-const Endpoint = ({ classes, endpoint, method, description, request, requestLanguage, response }) => (
+const Endpoint = ({ classes, endpoint, method, description, request, requestLanguage, status, response }) => (
   <Card className={classes.card}>
     <CardContent className={classes.content}>
       <Typography className={classes.method} color="textSecondary">
@@ -77,8 +77,15 @@ const Endpoint = ({ classes, endpoint, method, description, request, requestLang
         Example Response
       </Typography>
       <CodeBlock>
-        {response}
+        {status}
       </CodeBlock>
+      {
+        response
+        &&
+        <CodeBlock>
+          {JSON.stringify(response, null, '  ')}
+        </CodeBlock>
+      }
     </CardContent>
     {/* <CardActions>
       <Button size="small">Try it out</Button>
@@ -93,7 +100,8 @@ Endpoint.propTypes = {
   description: PropTypes.string,
   request: PropTypes.string,
   requestLanguage: PropTypes.string,
-  response: PropTypes.string
+  status: PropTypes.string,
+  response: PropTypes.any
 }
 
 export default withStyles(styles)(Endpoint)

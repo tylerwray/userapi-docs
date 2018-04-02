@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import { withStyles } from 'material-ui/styles'
-import endpoints from '../endpoints'
+import { endpoints } from '../endpoints'
 import Endpoint from '../../../shared/Endpoint'
 
 const styles = () => ({
@@ -55,9 +55,10 @@ class Docs extends Component {
             endpoint={ep.endpoint}
             method={ep.method}
             description={ep.description}
-            request={ep[this.state.selectedRequestLang].example}
+            request={ep[this.state.selectedRequestLang]}
             requestLanguage={this.state.selectedRequestLang}
-            response={JSON.stringify(ep.exampleResponse, null, '  ')} />
+            status={ep.exampleStatus}
+            response={ep.exampleResponse} />
         ))}
       </div>
     )
