@@ -18,9 +18,7 @@ render(
 )
 
 if (module.hot) {
-  console.log('Module is hot!')
   module.hot.accept('./App', () => {
-    console.log('re-render')
     const NextApp = require('./App').default
     render(
       <Provider store={store}>
