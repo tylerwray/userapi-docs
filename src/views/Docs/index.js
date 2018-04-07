@@ -1,3 +1,3 @@
-import Docs from './components/Docs'
+import Docs from './containers/Docs'
 
 export default Docs

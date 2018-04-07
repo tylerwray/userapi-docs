@@ -4,6 +4,10 @@ import Tabs, { Tab } from 'material-ui/Tabs'
 import { withStyles } from 'material-ui/styles'
 import { endpoints } from '../endpoints'
 import Endpoint from '../../../shared/Endpoint'
+import CloseButton from '../../../shared/CloseButton'
+import { connect } from 'react-redux'
+import Snackbar from 'material-ui/Snackbar'
+import { copiedCodeSnippet, closeCopiedMessage } from '../actions/codeBlock'
 
 const styles = () => ({
   toolBar: {
@@ -17,7 +21,10 @@ const styles = () => ({
 
 class Docs extends Component {
   static propTypes = {
-    classes: PropTypes.object
+    classes: PropTypes.object,
+    copiedMessageOpen: PropTypes.bool.isRequired,
+    onSnippetCopy: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
   }
 
   state = {
@@ -29,7 +36,7 @@ class Docs extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, copiedMessageOpen, onSnippetCopy, onClose } = this.props
 
     return (
       <div>
@@ -58,11 +65,37 @@ class Docs extends Component {
             request={ep[this.state.selectedRequestLang]}
             requestLanguage={this.state.selectedRequestLang}
             status={ep.exampleStatus}
-            response={ep.exampleResponse} />
+            response={ep.exampleResponse}
+            onSnippetCopy={onSnippetCopy}
+          />
         ))}
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={copiedMessageOpen}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id'
+          }}
+          message={<span id="message-id">Copied response to clipboard</span>}
+          action={
+            <CloseButton onClick={onClose} />
+          }
+        />
       </div>
     )
   }
 }
 
-export default withStyles(styles)(Docs)
+const mapStateToProps = ({ codeBlock }) => ({
+  copiedMessageOpen: codeBlock.messageOpen
+})
+
+const mapDispatchToProps = dispatch => ({
+  onSnippetCopy: () => {
+    dispatch(copiedCodeSnippet())
+  },
+  onClose: () => {
+    dispatch(closeCopiedMessage())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Docs))

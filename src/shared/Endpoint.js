@@ -46,7 +46,7 @@ const styles = theme => {
   }
 }
 
-const Endpoint = ({ classes, endpoint, method, description, request, requestLanguage, status, response }) => (
+const Endpoint = ({ classes, endpoint, method, description, request, requestLanguage, status, response, onSnippetCopy }) => (
   <Card className={classes.card}>
     <CardContent className={classes.content}>
       <Typography className={classes.method} color="textSecondary">
@@ -69,20 +69,20 @@ const Endpoint = ({ classes, endpoint, method, description, request, requestLang
       {
         request
         &&
-        <CodeBlock language={requestLanguage}>
+        <CodeBlock language={requestLanguage} onCopy={onSnippetCopy}>
           {request}
         </CodeBlock>
       }
       <Typography variant="subheading" className={classes.codeBlockLabel}>
         Example Response
       </Typography>
-      <CodeBlock>
+      <CodeBlock onCopy={onSnippetCopy}>
         {status}
       </CodeBlock>
       {
         response
         &&
-        <CodeBlock>
+        <CodeBlock onCopy={onSnippetCopy}>
           {JSON.stringify(response, null, '  ')}
         </CodeBlock>
       }
@@ -101,7 +101,8 @@ Endpoint.propTypes = {
   request: PropTypes.string,
   requestLanguage: PropTypes.string,
   status: PropTypes.string,
-  response: PropTypes.any
+  response: PropTypes.any,
+  onSnippetCopy: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(Endpoint)
