@@ -52,7 +52,7 @@ const Header = ({ classes }) => (
   <AppBar className={classes.root} position="static" color="primary">
     <Toolbar>
       <Typography component={Link} to="/" className={classes.title} variant="title" color="inherit">
-        Tyler API
+        User API
       </Typography>
       <div className={classes.nav}>
         {NAV_ITEMS.map((item, key) => (
