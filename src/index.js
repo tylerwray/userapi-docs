@@ -6,8 +6,6 @@ import Raven from 'raven-js'
 import store from './store'
 import App from './App'
 
-import './index.css'
-
 if (process.env.NODE_ENV === 'production') {
   Raven.config('https://87450e3d9c6c49d8afc4ca8dd923c62c@sentry.io/1144242').install()
 }
