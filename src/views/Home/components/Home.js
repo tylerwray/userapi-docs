@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import axios from 'axios'
+
 import Paper from 'material-ui/Paper'
 import { CircularProgress } from 'material-ui/Progress'
 import MarkdownRenderer from 'react-markdown-renderer'
 import { withStyles } from 'material-ui/styles'
+
+import { closeWelcomeMessage } from '../actions/home'
+import WelcomeSnackbar from '../../../shared/WelcomeSnackbar'
 
 const ONE_HOUR_IN_MILLISECONDS = 3600000
 
@@ -23,10 +28,6 @@ const styles = theme => ({
 class Home extends Component {
   state = {
     markdown: null
-  }
-
-  static propTypes = {
-    classes: PropTypes.object
   }
 
   isREADMEExpired() {
@@ -66,7 +67,7 @@ class Home extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, open, closeWelcomeSnackbar } = this.props
 
     return (
       <Paper className={classes.root} elevation={2}>
@@ -79,9 +80,29 @@ class Home extends Component {
             </div>
           )
         }
+        <WelcomeSnackbar
+          open={open}
+          onClose={closeWelcomeSnackbar}
+        />
       </Paper>
     )
   }
 }
 
-export default withStyles(styles)(Home)
+Home.propTypes = {
+  classes: PropTypes.object,
+  open: PropTypes.bool.isRequired,
+  closeWelcomeSnackbar: PropTypes.func.isRequired
+}
+
+const mapStateToProps = ({ home }) => ({
+  open: home.open
+})
+
+const mapDispatchToProps = dispatch => ({
+  closeWelcomeSnackbar: () => {
+    dispatch(closeWelcomeMessage())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home))
