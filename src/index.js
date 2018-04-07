@@ -8,7 +8,11 @@ import App from './App'
 
 import './index.css'
 
-Raven.config('https://87450e3d9c6c49d8afc4ca8dd923c62c@sentry.io/1144242').install()
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'production') {
+  console.log('Enabling Sentry')
+  Raven.config('https://87450e3d9c6c49d8afc4ca8dd923c62c@sentry.io/1144242').install()
+}
 
 render(
   <Provider store={store}>
