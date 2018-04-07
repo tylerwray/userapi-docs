@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom'
 import CloseButton from './shared/CloseButton'
 import Routes from './Routes'
 import AppLayout from './layouts/AppLayout'
+import Raven from 'raven-js'
+
+Raven.config('https://87450e3d9c6c49d8afc4ca8dd923c62c@sentry.io/1144242').install()
 
 class App extends Component {
   state = {
