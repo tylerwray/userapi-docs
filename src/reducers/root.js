@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
 import homeReducer from '../views/Home/reducers/home'
-import codeBlockReducer from '../views/Docs/reducers/codeBlock'
+import docsReducer from '../views/Docs/reducers/docs'
 
 export default combineReducers({
   home: homeReducer,
-  codeBlock: codeBlockReducer
+  docs: docsReducer
 })

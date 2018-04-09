@@ -1,4 +1,4 @@
-import { OPEN_WELCOME_MESSAGE, CLOSE_WELCOME_MESSAGE } from '../../../actionTypes'
+import { OPEN_WELCOME_MESSAGE, CLOSE_WELCOME_MESSAGE } from '../../../constants'
 
 export const openWelcomeMessage = () => ({
   type: OPEN_WELCOME_MESSAGE
