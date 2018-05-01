@@ -1,12 +1,2 @@
-import { createSelector } from 'reselect'
-
-export const getSelectedLang = createSelector(
-  state => state.docs.exampleLanguages,
-  state => state.docs.selectedExampleLang,
-  (exampleLanguages, selectedExampleLang) => exampleLanguages[selectedExampleLang]
-)
-
-export const isCopiedMessageOpen = createSelector(
-  state => state.docs.copiedMessageOpen,
-  copiedMessageOpen => copiedMessageOpen
-)
+export const getSelectedLang = state => state.docs.exampleLanguages[state.docs.selectedExampleLang]
+export const isCopiedMessageOpen = state => state.docs.copiedMessageOpen

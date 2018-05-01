@@ -89,9 +89,6 @@ const Endpoint = ({ classes, endpoint, method, description, request, requestLang
         </CodeBlock>
       }
     </CardContent>
-    {/* <CardActions>
-      <Button size="small">Try it out</Button>
-    </CardActions> */}
   </Card>
 )
 
