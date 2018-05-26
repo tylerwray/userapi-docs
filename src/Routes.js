@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect, Switch, Route } from 'react-router-dom'
+
 import Home from './pages/Home'
 import Docs from './pages/Docs'
 
