@@ -6,7 +6,7 @@ import { getReadme } from './services'
 
 export default function *homeSaga() {
   yield takeLatest(README_REQUESTED, handleReadmeRequest)
-  yield delay(1500)
+  yield delay(2500)
   yield put(closeWelcomeMessage())
 }
 
