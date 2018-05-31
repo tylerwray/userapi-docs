@@ -5,12 +5,11 @@ import { withStyles } from 'material-ui/styles'
 import Card, { CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
+import Button from 'material-ui/Button'
 
 import CodeBlock from './CodeBlock'
 
-const styles = theme => {
-  console.log(theme)
-
+function styles(theme) {
   return {
     card: {
       maxWidth: 800,
@@ -37,8 +36,13 @@ const styles = theme => {
     method: {
       marginLeft: 24,
       display: 'inline-block',
-      fontSize: 20,
+      fontSize: 24,
+      fontWeight: 500,
       color: theme.palette.secondary.main
+    },
+    tryMeButton: {
+      float: 'right',
+      marginRight: 15
     },
     description: {
       marginBottom: 10,
@@ -48,7 +52,23 @@ const styles = theme => {
   }
 }
 
-const Endpoint = ({ classes, endpoint, method, description, request, requestLanguage, status, response, onSnippetCopy }) => (
+function Endpoint(props) {
+  const {
+    classes,
+    endpoint,
+    method,
+    description,
+    request,
+    requestLanguage,
+    status,
+    response,
+    tryMeUrl,
+    onSnippetCopy
+  } = props
+
+  console.log(tryMeUrl)
+
+  return (
   <Card className={classes.card}>
     <CardContent className={classes.content}>
       <Typography className={classes.method} color="textSecondary">
@@ -57,6 +77,7 @@ const Endpoint = ({ classes, endpoint, method, description, request, requestLang
       <Typography className={classes.endpoint} variant="headline">
         {endpoint}
       </Typography>
+      <Button color="secondary" variant="raised" className={classes.tryMeButton} href={tryMeUrl} target="_blank">Try me out</Button>
       <Typography variant="display2" className={classes.description}>
         {description}
       </Typography>
@@ -91,7 +112,7 @@ const Endpoint = ({ classes, endpoint, method, description, request, requestLang
     </CardContent>
   </Card>
 )
-
+}
 Endpoint.propTypes = {
   classes: PropTypes.object,
   endpoint: PropTypes.string,
@@ -101,6 +122,7 @@ Endpoint.propTypes = {
   requestLanguage: PropTypes.string,
   status: PropTypes.string,
   response: PropTypes.any,
+  tryMeUrl: PropTypes.string.isRequired,
   onSnippetCopy: PropTypes.func.isRequired
 }
 

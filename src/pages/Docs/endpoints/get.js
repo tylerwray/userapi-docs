@@ -1,12 +1,14 @@
 import { API_HOST } from '../../../constants'
 
+const TRY_ME_URL = `${API_HOST}/users/3`
+
 const bash = `\
-curl ${API_HOST}/users/3 \\
+curl ${TRY_ME_URL} \\
   --header "Accept: application/json"`
 
 const javascript = `\
 const axios = require('axios');
-const user = axios.get('${API_HOST}/users3');
+const user = axios.get('${TRY_ME_URL}');
 console.log(user);`
 
 const go = `\
@@ -19,7 +21,7 @@ import (
 )
 
 func main() {
-  res, err := http.Get("${API_HOST}/users/3")
+  res, err := http.Get("${TRY_ME_URL}")
   if err != nil {
       panic(err)
   }
@@ -35,7 +37,7 @@ func main() {
 }`
 
 const php = `\
-$req = curl_init('${API_HOST}/users/3');
+$req = curl_init('${TRY_ME_URL}');
 curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($req, CURLOPT_HTTPHEADER, array(
   'Accept: application/json',
@@ -47,6 +49,7 @@ print($res);`
 const get = {
   endpoint: '/users/:id',
   method: 'GET',
+  tryMeUrl: TRY_ME_URL,
   description: 'Retrieve a single user',
   bash,
   javascript,

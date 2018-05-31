@@ -49,6 +49,7 @@ const Docs = ({ classes, copiedMessageOpen, selectedLang, changeLang, onSnippetC
         requestLanguage={selectedLang}
         status={ep.exampleStatus}
         response={ep.exampleResponse}
+        tryMeUrl={ep.tryMeUrl}
         onSnippetCopy={onSnippetCopy}
       />
     ))}
