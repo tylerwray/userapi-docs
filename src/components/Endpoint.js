@@ -19,7 +19,6 @@ function styles(theme) {
     content: {
       paddingLeft: 0,
       paddingRight: 0,
-      // NOTE: Temporary, might remove later
       '&:last-child': {
         paddingBottom: 0
       }
@@ -59,7 +58,6 @@ function Endpoint(props) {
     method,
     description,
     request,
-    requestLanguage,
     response,
     tryMeUrl,
     onSnippetCopy
@@ -91,16 +89,12 @@ function Endpoint(props) {
           {description}
         </Typography>
         <Divider />
-        {request && (
-          <Typography variant="subtitle1" className={classes.codeBlockLabel}>
-            Example {requestLanguage} Request
-          </Typography>
-        )}
-        {request && (
-          <CodeBlock language={requestLanguage} onCopy={onSnippetCopy}>
-            {request}
-          </CodeBlock>
-        )}
+        <Typography variant="subtitle1" className={classes.codeBlockLabel}>
+          Example bash Request
+        </Typography>
+        <CodeBlock language={'bash'} onCopy={onSnippetCopy}>
+          {request}
+        </CodeBlock>
         <Typography variant="subtitle1" className={classes.codeBlockLabel}>
           Example Response
         </Typography>
@@ -113,13 +107,13 @@ function Endpoint(props) {
     </Card>
   )
 }
+
 Endpoint.propTypes = {
   classes: PropTypes.object,
   endpoint: PropTypes.string,
   method: PropTypes.string,
   description: PropTypes.string,
   request: PropTypes.string,
-  requestLanguage: PropTypes.string,
   response: PropTypes.any,
   tryMeUrl: PropTypes.string.isRequired,
   onSnippetCopy: PropTypes.func.isRequired

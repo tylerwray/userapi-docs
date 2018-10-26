@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Redirect, Switch, Route } from 'react-router-dom'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-import Home from './pages/Home'
-import Docs from './pages/Docs'
+const HomePage = lazy(() => import('./components/HomePage'))
+const DocsPage = lazy(() => import('./components/DocsPage'))
 
-const Routes = () => (
-  <Switch>
-    <Route exact path="/" component={Home} />
-    <Route exact path="/docs" component={Docs} />
-    <Redirect to="/" />
-  </Switch>
-)
+function Routes() {
+  return (
+    <Suspense fallback={<CircularProgress />}>
+      <Switch>
+        <Route exact path="/" component={props => <HomePage {...props} />} />
+        <Route
+          exact
+          path="/docs"
+          component={props => <DocsPage {...props} />}
+        />
+        <Redirect to="/" />
+      </Switch>
+    </Suspense>
+  )
+}
 
 export default Routes

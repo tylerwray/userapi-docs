@@ -22,20 +22,22 @@ const styles = {
   }
 }
 
-const Background = ({ children, style, textToCopy, onCopy }) => (
-  <div style={{ ...style, ...styles.background }}>
-    <span style={styles.copyButton}>
-      <CopyToClipboard text={textToCopy} onCopy={onCopy}>
-        <Tooltip title="Copy to Clipboard" placement="left">
-          <IconButton aria-label="Copy">
-            <CopyIcon style={styles.copyIcon} color="action" />
-          </IconButton>
-        </Tooltip>
-      </CopyToClipboard>
-    </span>
-    {children}
-  </div>
-)
+function Background({ children, style, textToCopy, onCopy }) {
+  return (
+    <div style={{ ...style, ...styles.background }}>
+      <span style={styles.copyButton}>
+        <CopyToClipboard text={textToCopy} onCopy={onCopy}>
+          <Tooltip title="Copy to Clipboard" placement="left">
+            <IconButton aria-label="Copy">
+              <CopyIcon style={styles.copyIcon} color="action" />
+            </IconButton>
+          </Tooltip>
+        </CopyToClipboard>
+      </span>
+      {children}
+    </div>
+  )
+}
 
 Background.propTypes = {
   children: PropTypes.array.isRequired,

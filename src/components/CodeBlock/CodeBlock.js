@@ -13,18 +13,20 @@ const styles = {
   }
 }
 
-const CodeBlock = ({ children, language, onCopy }) => (
-  <Syntax
-    language={language || 'json'}
-    style={tomorrow}
-    customStyle={styles.codeBlock}
-    PreTag={props => (
-      <Background textToCopy={children} {...props} onCopy={onCopy} />
-    )}
-  >
-    {children}
-  </Syntax>
-)
+function CodeBlock({ children, language, onCopy }) {
+  return (
+    <Syntax
+      language={language || 'json'}
+      style={tomorrow}
+      customStyle={styles.codeBlock}
+      PreTag={props => (
+        <Background textToCopy={children} {...props} onCopy={onCopy} />
+      )}
+    >
+      {children}
+    </Syntax>
+  )
+}
 
 CodeBlock.propTypes = {
   children: PropTypes.string.isRequired,
