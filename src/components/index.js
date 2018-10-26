@@ -4,10 +4,4 @@ import CloseIconButton from './CloseIconButton'
 import Endpoint from './Endpoint'
 import WelcomeSnackbar from './WelcomeSnackbar'
 
-export {
-  AppLayout,
-  CodeBlock,
-  CloseIconButton,
-  Endpoint,
-  WelcomeSnackbar
-}
+export { AppLayout, CodeBlock, CloseIconButton, Endpoint, WelcomeSnackbar }

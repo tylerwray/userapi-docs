@@ -13,7 +13,7 @@ const defaultState = {
   errorMessage: ''
 }
 
-export default function (state = defaultState, action) {
+export default function(state = defaultState, action) {
   switch (action.type) {
     case README_REQUESTED:
       return {
@@ -30,7 +30,7 @@ export default function (state = defaultState, action) {
       return {
         ...state,
         loading: false,
-        errorMessage: 'Couldn\'t get README from Github'
+        errorMessage: "Couldn't get README from Github"
       }
     case OPEN_WELCOME_MESSAGE:
       return {

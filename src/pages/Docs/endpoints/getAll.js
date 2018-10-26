@@ -54,7 +54,6 @@ const getAll = {
   javascript,
   go,
   php,
-  exampleStatus: '200 OK',
   exampleResponse: {
     data: [
       {

@@ -2,19 +2,18 @@
   "name": "userapi.io-website",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://userapi.io/",
   "dependencies": {
+    "@material-ui/core": "^3.3.1",
+    "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
-    "material-ui": "^1.0.0-beta.38",
-    "material-ui-icons": "^1.0.0-beta.36",
-    "raven-js": "^3.24.0",
-    "react": "^16.2.0",
+    "react": "^16.7.0-alpha.0",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.2.0",
-    "react-hot-loader": "^4.0.1",
+    "react-dom": "^16.7.0-alpha.0",
     "react-markdown-renderer": "^1.4.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
+    "react-scripts": "^2.0.5",
     "react-syntax-highlighter": "^7.0.4",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
@@ -22,13 +21,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ext .js ."
+    "build": "react-scripts build"
   },
-  "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.7.0"
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import IconButton from 'material-ui/IconButton'
-import CopyIcon from 'material-ui-icons/ContentCopy'
-import Tooltip from 'material-ui/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import CopyIcon from '@material-ui/icons/FileCopy'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 

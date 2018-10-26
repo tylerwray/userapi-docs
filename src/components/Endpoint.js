@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { withStyles } from 'material-ui/styles'
-import Card, { CardContent } from 'material-ui/Card'
-import Typography from 'material-ui/Typography'
-import Divider from 'material-ui/Divider'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import Button from '@material-ui/core/Button'
 
 import CodeBlock from './CodeBlock'
 
@@ -46,8 +47,7 @@ function styles(theme) {
     },
     description: {
       marginBottom: 10,
-      marginLeft: 24,
-      fontSize: 16
+      marginLeft: 24
     }
   }
 }
@@ -60,58 +60,58 @@ function Endpoint(props) {
     description,
     request,
     requestLanguage,
-    status,
     response,
     tryMeUrl,
     onSnippetCopy
   } = props
 
-  console.log(tryMeUrl)
-
   return (
-  <Card className={classes.card}>
-    <CardContent className={classes.content}>
-      <Typography className={classes.method} color="textSecondary">
-        {method.toUpperCase()}
-      </Typography>
-      <Typography className={classes.endpoint} variant="headline">
-        {endpoint}
-      </Typography>
-      <Button color="secondary" variant="raised" className={classes.tryMeButton} href={tryMeUrl} target="_blank">Try me out</Button>
-      <Typography variant="display2" className={classes.description}>
-        {description}
-      </Typography>
-      <Divider />
-      {
-        request
-        &&
-        <Typography variant="subheading" className={classes.codeBlockLabel}>
-          Example {requestLanguage} Request
+    <Card className={classes.card}>
+      <CardContent className={classes.content}>
+        <Typography
+          className={classes.method}
+          variant="h5"
+          color="textSecondary"
+        >
+          {method.toUpperCase()}
         </Typography>
-      }
-      {
-        request
-        &&
-        <CodeBlock language={requestLanguage} onCopy={onSnippetCopy}>
-          {request}
-        </CodeBlock>
-      }
-      <Typography variant="subheading" className={classes.codeBlockLabel}>
-        Example Response
-      </Typography>
-      <CodeBlock onCopy={onSnippetCopy}>
-        {status}
-      </CodeBlock>
-      {
-        response
-        &&
-        <CodeBlock onCopy={onSnippetCopy}>
-          {JSON.stringify(response, null, '  ')}
-        </CodeBlock>
-      }
-    </CardContent>
-  </Card>
-)
+        <Typography className={classes.endpoint} variant="h5">
+          {endpoint}
+        </Typography>
+        <Button
+          color="secondary"
+          variant="contained"
+          className={classes.tryMeButton}
+          href={tryMeUrl}
+          target="_blank"
+        >
+          Try me out
+        </Button>
+        <Typography variant="body1" className={classes.description}>
+          {description}
+        </Typography>
+        <Divider />
+        {request && (
+          <Typography variant="subtitle1" className={classes.codeBlockLabel}>
+            Example {requestLanguage} Request
+          </Typography>
+        )}
+        {request && (
+          <CodeBlock language={requestLanguage} onCopy={onSnippetCopy}>
+            {request}
+          </CodeBlock>
+        )}
+        <Typography variant="subtitle1" className={classes.codeBlockLabel}>
+          Example Response
+        </Typography>
+        {response && (
+          <CodeBlock onCopy={onSnippetCopy}>
+            {JSON.stringify(response, null, '  ')}
+          </CodeBlock>
+        )}
+      </CardContent>
+    </Card>
+  )
 }
 Endpoint.propTypes = {
   classes: PropTypes.object,
@@ -120,7 +120,6 @@ Endpoint.propTypes = {
   description: PropTypes.string,
   request: PropTypes.string,
   requestLanguage: PropTypes.string,
-  status: PropTypes.string,
   response: PropTypes.any,
   tryMeUrl: PropTypes.string.isRequired,
   onSnippetCopy: PropTypes.func.isRequired

@@ -2,25 +2,28 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Paper from 'material-ui/Paper'
-import { CircularProgress } from 'material-ui/Progress'
+import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { withStyles } from '@material-ui/core/styles'
+
 import MarkdownRenderer from 'react-markdown-renderer'
-import { withStyles } from 'material-ui/styles'
 
 import { closeWelcomeMessage, readmeRequest } from './actions'
 import { WelcomeSnackbar } from '../../components'
 
-const styles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    margin: `${theme.spacing.unit * 3}px auto`,
-    maxWidth: '800px'
-  }),
-  progress: {
-    textAlign: 'center'
+function styles(theme) {
+  return {
+    root: theme.mixins.gutters({
+      paddingTop: 16,
+      paddingBottom: 16,
+      margin: `${theme.spacing.unit * 3}px auto`,
+      maxWidth: '800px'
+    }),
+    progress: {
+      textAlign: 'center'
+    }
   }
-})
+}
 
 class Home extends Component {
   componentDidMount() {
@@ -32,19 +35,14 @@ class Home extends Component {
 
     return (
       <Paper className={classes.root} elevation={2}>
-        {
-          readme
-            ? <MarkdownRenderer markdown={readme} />
-            : (
-              <div className={classes.progress}>
-                <CircularProgress />
-              </div>
-            )
-        }
-        <WelcomeSnackbar
-          open={open}
-          onClose={closeWelcomeSnackbar}
-        />
+        {readme ? (
+          <MarkdownRenderer markdown={readme} />
+        ) : (
+          <div className={classes.progress}>
+            <CircularProgress />
+          </div>
+        )}
+        <WelcomeSnackbar open={open} onClose={closeWelcomeSnackbar} />
       </Paper>
     )
   }
@@ -72,4 +70,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Home))

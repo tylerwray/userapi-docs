@@ -4,11 +4,11 @@ import { put, takeLatest } from 'redux-saga/effects'
 import { closeCopiedMessage } from './actions'
 import { COPIED_CODE_SNIPPET } from './constants'
 
-export default function *docsSaga() {
+export default function* docsSaga() {
   yield takeLatest(COPIED_CODE_SNIPPET, closeMessage)
 }
 
-function *closeMessage() {
+function* closeMessage() {
   yield delay(1500)
   yield put(closeCopiedMessage())
 }

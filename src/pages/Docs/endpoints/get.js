@@ -55,7 +55,6 @@ const get = {
   javascript,
   go,
   php,
-  exampleStatus: '200 OK',
   exampleResponse: {
     id: 3,
     name: 'Alexa Gates',

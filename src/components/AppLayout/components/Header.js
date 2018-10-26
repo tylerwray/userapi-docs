@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, NavLink } from 'react-router-dom'
 
-import { withStyles } from 'material-ui/styles'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
+import { withStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
 const NAV_ITEM_BACKGROUND_COLOR = 'rgba(0, 0, 0, 0.4)'
 
@@ -52,12 +52,23 @@ const NAV_ITEMS = [
 const Header = ({ classes }) => (
   <AppBar className={classes.root} position="static" color="primary">
     <Toolbar>
-      <Typography component={Link} to="/" className={classes.title} variant="title" color="inherit">
+      <Typography
+        component={Link}
+        to="/"
+        className={classes.title}
+        variant="h6"
+        color="inherit"
+      >
         USER API
       </Typography>
       <div className={classes.nav}>
         {NAV_ITEMS.map((item, key) => (
-          <NavLink key={key} to={item.to} activeClassName={classes.navItemSelected} className={classes.navItem}>
+          <NavLink
+            key={key}
+            to={item.to}
+            activeClassName={classes.navItemSelected}
+            className={classes.navItem}
+          >
             {item.name.toUpperCase()}
           </NavLink>
         ))}

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Snackbar from 'material-ui/Snackbar'
+import Snackbar from '@material-ui/core/Snackbar'
 
 import CloseIconButton from './CloseIconButton'
 
@@ -9,13 +9,11 @@ const WelcomeSnackbar = ({ open, onClose }) => (
   <Snackbar
     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
     open={open}
-    SnackbarContentProps={{
+    ContentProps={{
       'aria-describedby': 'message-id'
     }}
     message={<span id="message-id">Welcome to User API</span>}
-    action={
-      <CloseIconButton onClick={onClose} />
-    }
+    action={<CloseIconButton onClick={onClose} />}
   />
 )
 
