@@ -2,15 +2,14 @@ language: node_js
 node_js:
 - '9'
 cache:
+  yarn: true
   directories:
   - node_modules
 notifications:
   slack:
     secure: kVc4AgC6au2VMC5+V3gm2CTEf6CUaCzD/Sh3UqO9QQGy/12q6px6/JSuTRR9ue061Tqe6ZsMs8wGLhotOGUocVROeM+oLbBReKMiorL5Oj3XfjbVoefpLNdiEWqn5pq2RAJhopidPb45JstxRL3nEap1gjVWC1DHsZ5S0oButcTXv1RKGsjJVjBs0rseMOKEjX0qwhzckAd2PZ8da12jtSo5gILsYoIHJg48BTuRq5qeOC1NR+fcknokrkfI5tdGt1oQ3lT2LDH02UiWLtVkoGVkc0GPacCNtZTkkYGFcDanGeup7REU85iSEqb4kDhnb2BVd2rzlKuJVcvynjUGr/N/P5Wv3UIu710yONFsW+0CcIRPQ9e5+agrcPaeGwVY2GshEt+qhr3eKhm91l8uI7rLRj7xInR1myrcAPTOhTurc0gqTG0j24r6L6rsBTyfuHiCFl+B9ejWfAGqlTPnLKCTLfzAnkWw6cJXkqx95b7BN/CYgl/SOulyzdbfQwLcrPq/rcUdLmxVpv9oD/4huwU4Prz4/B69zpec/TRbmT4na+7WdXdp9sMDt9vE1YQZgLwzPRr6+XrKdJUHbuHdcE3CmG5d+yf4aSftfCLE79EYpYenpYD43i7Z5QmpHsBlDmsGYQ7ZLGhGcXWmo61I91OGXdxheQBgDqUeNNO7B/Q=
 script:
-- npm run build
-after_script:
-- COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
+- yarn build
 deploy:
   provider: s3
   skip_cleanup: true
