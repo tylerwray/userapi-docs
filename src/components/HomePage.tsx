@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import Paper from '@material-ui/core/Paper'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, Theme, createStyles } from '@material-ui/core/styles'
 
-import MarkdownRenderer from 'react-markdown-renderer'
+import ReactMarkdown from 'react-markdown'
 
 import WelcomeSnackbar from './WelcomeSnackbar'
-const getReadme = () =>
-  axios
-    .get(
-      'https://api.github.com/repos/tylerwray/userapi-docs/contents/README.md?ref=master'
-    )
-    .then(res => atob(res.data.content))
 
-function styles(theme) {
-  return {
+function getReadme(): Promise<string> {
+  const README_ENDPOINT =
+    'https://api.github.com/repos/tylerwray/userapi-docs/contents/README.md?ref=master'
+
+  return axios.get(README_ENDPOINT).then(res => atob(res.data.content))
+}
+
+function styles(theme: Theme) {
+  return createStyles({
     root: theme.mixins.gutters({
       paddingTop: 16,
       paddingBottom: 16,
@@ -30,14 +30,23 @@ function styles(theme) {
     markdown: {
       fontFamily: theme.typography.fontFamily
     }
+  })
+}
+
+interface Props {
+  classes: {
+    root: string
+    progress: string
+    markdown: string
   }
 }
 
-function HomePage({ classes }) {
-  const [readme, setReadme] = useState(null)
+function HomePage({ classes }: Props) {
+  const [readme, setReadme] = useState('')
+  const mounted = useRef(null)
 
   useEffect(() => {
-    if (!readme) {
+    if (readme === '') {
       getReadme().then(setReadme)
     }
   })
@@ -57,7 +66,7 @@ function HomePage({ classes }) {
   return (
     <Paper className={classes.root} elevation={2}>
       {readme ? (
-        <MarkdownRenderer className={classes.markdown} markdown={readme} />
+        <ReactMarkdown className={classes.markdown} source={readme} />
       ) : (
         <div className={classes.progress}>
           <CircularProgress />
@@ -66,10 +75,6 @@ function HomePage({ classes }) {
       <WelcomeSnackbar open={open} onClose={closeWelcomeSnackbar} />
     </Paper>
   )
-}
-
-HomePage.propTypes = {
-  classes: PropTypes.object
 }
 
 export default withStyles(styles)(HomePage)

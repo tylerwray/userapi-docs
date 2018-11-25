@@ -1,11 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Snackbar from '@material-ui/core/Snackbar'
 
 import CloseIconButton from './CloseIconButton'
 
-function WelcomeSnackbar({ open, onClose }) {
+interface Props {
+  open: boolean
+  onClose(event: React.MouseEvent): void
+}
+
+function WelcomeSnackbar({ open, onClose }: Props) {
   return (
     <Snackbar
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
@@ -17,11 +21,6 @@ function WelcomeSnackbar({ open, onClose }) {
       action={<CloseIconButton onClick={onClose} />}
     />
   )
-}
-
-WelcomeSnackbar.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
 }
 
 export default WelcomeSnackbar

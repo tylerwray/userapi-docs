@@ -1,17 +1,17 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Button from '@material-ui/core/Button'
+import { Response } from './Response'
 
 import CodeBlock from './CodeBlock'
 
-function styles(theme) {
-  return {
+function styles(theme: Theme) {
+  return createStyles({
     card: {
       maxWidth: 800,
       margin: '50px auto'
@@ -48,10 +48,29 @@ function styles(theme) {
       marginBottom: 10,
       marginLeft: 24
     }
-  }
+  })
 }
 
-function Endpoint(props) {
+interface Props {
+  classes: {
+    card: string
+    content: string
+    codeBlockLabel: string
+    endpoint: string
+    method: string
+    tryMeButton: string
+    description: string
+  }
+  endpoint: string
+  method: string
+  description: string
+  request: string
+  response: Response
+  tryMeUrl: string
+  onSnippetCopy(a: string, b: boolean): void
+}
+
+function Endpoint(props: Props) {
   const {
     classes,
     endpoint,
@@ -106,17 +125,6 @@ function Endpoint(props) {
       </CardContent>
     </Card>
   )
-}
-
-Endpoint.propTypes = {
-  classes: PropTypes.object,
-  endpoint: PropTypes.string,
-  method: PropTypes.string,
-  description: PropTypes.string,
-  request: PropTypes.string,
-  response: PropTypes.any,
-  tryMeUrl: PropTypes.string.isRequired,
-  onSnippetCopy: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(Endpoint)

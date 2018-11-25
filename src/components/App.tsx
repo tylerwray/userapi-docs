@@ -5,8 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Routes from './Routes'
-
-import Layout from './components/Layout'
+import Layout from './Layout'
 
 const theme = createMuiTheme({
   typography: {

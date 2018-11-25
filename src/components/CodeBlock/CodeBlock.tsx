@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Syntax from 'react-syntax-highlighter/prism'
 import { tomorrow } from 'react-syntax-highlighter/styles/prism'
@@ -13,25 +12,25 @@ const styles = {
   }
 }
 
-function CodeBlock({ children, language, onCopy }) {
+interface Props {
+  children: React.ReactNode
+  language?: string
+  onCopy(a: string, b: boolean): void
+}
+
+function CodeBlock({ children, language = 'json', onCopy }: Props) {
   return (
     <Syntax
-      language={language || 'json'}
+      language={language}
       style={tomorrow}
       customStyle={styles.codeBlock}
-      PreTag={props => (
+      PreTag={(props: any) => (
         <Background textToCopy={children} {...props} onCopy={onCopy} />
       )}
     >
       {children}
     </Syntax>
   )
-}
-
-CodeBlock.propTypes = {
-  children: PropTypes.string.isRequired,
-  language: PropTypes.string,
-  onCopy: PropTypes.func.isRequired
 }
 
 export default CodeBlock

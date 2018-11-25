@@ -5,27 +5,37 @@ import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import CopyIcon from '@material-ui/icons/FileCopy'
 
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 const styles = {
-  background: {
-    borderRadius: 0,
-    position: 'relative'
-  },
-  copyButton: {
-    position: 'absolute',
-    right: 5,
-    top: 5
-  },
   copyIcon: {
     color: '#CCCCCC'
   }
 }
 
-function Background({ children, style, textToCopy, onCopy }) {
+interface Props {
+  children: Array<React.ReactNode>
+  style: object
+  textToCopy: string
+  onCopy(a: string, b: boolean): void
+}
+
+function Background({ children, style, textToCopy, onCopy }: Props) {
   return (
-    <div style={{ ...style, ...styles.background }}>
-      <span style={styles.copyButton}>
+    <div
+      style={{
+        borderRadius: 0,
+        position: 'relative',
+        ...style
+      }}
+    >
+      <span
+        style={{
+          position: 'absolute',
+          right: 5,
+          top: 5
+        }}
+      >
         <CopyToClipboard text={textToCopy} onCopy={onCopy}>
           <Tooltip title="Copy to Clipboard" placement="left">
             <IconButton aria-label="Copy">
@@ -37,13 +47,6 @@ function Background({ children, style, textToCopy, onCopy }) {
       {children}
     </div>
   )
-}
-
-Background.propTypes = {
-  children: PropTypes.array.isRequired,
-  style: PropTypes.object.isRequired,
-  textToCopy: PropTypes.string.isRequired,
-  onCopy: PropTypes.func.isRequired
 }
 
 export default Background

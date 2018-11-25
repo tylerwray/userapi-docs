@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 
 import { withStyles } from '@material-ui/core/styles'
 import Snackbar from '@material-ui/core/Snackbar'
@@ -32,7 +32,7 @@ function DocsPage() {
   }
 
   return (
-    <Fragment>
+    <>
       {endpoints.map((endpoint, key) => (
         <Endpoint key={key} {...endpoint} onSnippetCopy={onSnippetCopy} />
       ))}
@@ -45,7 +45,7 @@ function DocsPage() {
         message={<span id="message-id">Copied response to clipboard</span>}
         action={<CloseIconButton onClick={onClose} />}
       />
-    </Fragment>
+    </>
   )
 }
 

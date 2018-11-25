@@ -11,10 +11,12 @@ const search = {
   description: 'Search for a user',
   request,
   response: {
-    id: 3,
-    name: 'Alexa Gates',
-    email: 'agates@example.com',
-    phone: '201-555-6789'
+    data: {
+      id: 3,
+      name: 'Alexa Gates',
+      email: 'agates@example.com',
+      phone: '201-555-6789'
+    }
   }
 }
 

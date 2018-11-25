@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 
-function styles(theme) {
+function styles(theme: Theme) {
   const NAV_ITEM_BACKGROUND_COLOR = 'rgba(0, 0, 0, 0.4)'
 
   return {
@@ -17,6 +17,8 @@ function styles(theme) {
       margin: '0 auto'
     },
     title: {
+      ...theme.typography.h6,
+      color: theme.palette.common.white,
       marginRight: '10px',
       textDecoration: 'none'
     },
@@ -51,20 +53,26 @@ const NAV_ITEMS = [
   }
 ]
 
-function Layout({ classes, children }) {
+interface Props {
+  classes: {
+    root: string
+    center: string
+    title: string
+    nav: string
+    navItem: string
+    navItemSelected: string
+  }
+  children: React.ReactNode
+}
+
+function Layout({ classes, children }: Props) {
   return (
-    <Fragment>
+    <>
       <AppBar className={classes.root} position="static" color="primary">
         <Toolbar>
-          <Typography
-            component={Link}
-            to="/"
-            className={classes.title}
-            variant="h6"
-            color="inherit"
-          >
+          <Link className={classes.title} to="/">
             USER API
-          </Typography>
+          </Link>
           <div className={classes.nav}>
             {NAV_ITEMS.map((item, key) => (
               <NavLink
@@ -80,7 +88,7 @@ function Layout({ classes, children }) {
         </Toolbar>
       </AppBar>
       {children}
-    </Fragment>
+    </>
   )
 }
 
